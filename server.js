@@ -1,21 +1,28 @@
-// Load dependencies
+// require our modules
 const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
 
-// Create the express app
+// initialize the express app
 const app = express();
 
-// Config settings app.set()
-app.set("view engine", "ejs");
+// configure settings app.set()
 
-// Mount middleware
+require("dotenv").config();
+require("./config/database");
 
-// Mount routes
-app.get("/", function (req, res) {
-	res.render("home");
-});
+// mount middleware with app.use()
+app.use(morgan("dev"));
+app.use(express.json()); // converts incoming json into req.body
+app.use(cors());
 
-// Tell the app to listen on a port
-const port = 3000;
+// mount our routes with app.use()
+app.use("/api/logs", require("./routes/api/logs"));
+
+// tell the app listen on port 3001
+
+const port = process.env.PORT || 3001;
+
 app.listen(port, function () {
-	console.log(`Express is listening on port ${port}`);
+	console.log(`Express is listening for AJAX requests on port ${port}`);
 });
