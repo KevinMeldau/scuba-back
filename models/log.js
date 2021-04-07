@@ -3,10 +3,11 @@ const Schema = mongoose.Schema;
 
 const logSchema = new Schema(
 	{
-		log: String,
-		level: String,
+		country: String,
+		site: String,
+		condition: String,
 	},
 	{ timestamps: true }
 );
 
-module.exports = mongoose.model("Skill", logSchema);
+module.exports = mongoose.model("Log", logSchema);
